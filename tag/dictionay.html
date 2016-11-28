@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nampeyo | articles tagged "dictionay"</title>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/theme/css/screen.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/css/print.css" type="text/css" media="print" />
+    <meta name="generator" content="Pelican" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="ephemeral selected"><a href="/tag/dictionay.html">dictionay</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/tags">Tags</a></li>
+                <li><a href="/categories">Categories</a></li>
+                <li><a href="/archives">Archives</a></li>
+                <li><a href="/authors">About</a></li>
+            </ul>
+        </nav>
+        <div class="header_box">
+            <h1><a class= "header_box_ex" href="/">Nampeyo</a></h1>
+            <h2>Snake that does not bite!</h2>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Dec 03, 2010</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="/how-to-make-the-dictionary-indexing-faster.html" rel="bookmark" title="Permanent Link to &quot;How to make the dictionary indexing faster?&quot;">How to make the dictionary indexing faster?</a>
+                </h2>
+
+                
+                
+
+                <p>No there is nothing faster than a dictionary, while the complexity of its indexing and even membership checking is O(1).</p>
+<p>So once you saved your items in a dictionary you can access them very fast. Therefore it seems that the problem is not indexing. But you might be able to make the process slightly faster by doing some changes in your materials. For example, if your strings (keys) are not very large you can intern them, in order to be cashed in memory rather than being created as an object. If the keys in a dictionary are interned, and the lookup key is interned, the key comparisons (after hashing) can be done by a pointer compare instead of a string compare. That makes the access to object very faster. Python has provided an <a href="https://docs.python.org/3/library/sys.html#sys.intern"><code>intern()</code></a> function within <code>sys</code> module that you can use it for this aim.</p>
+<p>Based on <a href="https://docs.python.org/3/library/sys.html#sys.intern">documentaion</a> here is what the <code>intern()</code> funcion does:</p>
+<blockquote>
+<p>Enter string in the table of <code>interned</code> strings and return the interned string – which is string itself or a copy. Interning strings is useful to gain a little performance on <strong>dictionary lookup</strong>...</p>
+</blockquote>
+<p>Here is an example:</p>
+<div class="highlight"><pre><span></span>    <span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
+
+    <span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mystr25&#39;</span><span class="p">]</span>
+    <span class="mi">10000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">46.9</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
+
+    <span class="n">In</span> <span class="p">[</span><span class="mi">51</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
+
+    <span class="n">In</span> <span class="p">[</span><span class="mi">52</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mystr25&#39;</span><span class="p">]</span>
+    <span class="mi">10000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">38.8</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
+</pre></div>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="/how-to-make-the-dictionary-indexing-faster.html">posted at 10:20</a>
+                    &nbsp;&middot;&nbsp;<a href="/category/python.html" rel="tag">Python</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="/tag/dictionay.html" class="tags selected">dictionay</a>
+                    &nbsp;<a href="/tag/performance.html" class="tags">performance</a>
+                    &nbsp;<a href="/tag/indexing.html" class="tags">indexing</a>
+                </div>
+		<a href="/how-to-make-the-dictionary-indexing-faster.html#disqus_thread">Click to read and post comments</a>
+            </article>
+
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/jody-frankowski/blue-penguin">Blue Penguin</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
