@@ -5,7 +5,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/</loc>
-<lastmod>2016-11-30T19:43:43-00:00</lastmod>
+<lastmod>2016-11-30T21:07:22-00:00</lastmod>
 <changefreq>hourly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -32,14 +32,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/performance.html</loc>
+<loc>/tag/indexing.html</loc>
 <lastmod>2016-11-30T15:40:00+03:26</lastmod>
 <changefreq>hourly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/indexing.html</loc>
+<loc>/tag/performance.html</loc>
 <lastmod>2016-11-30T15:40:00+03:26</lastmod>
 <changefreq>hourly</changefreq>
 <priority>0.5</priority>
