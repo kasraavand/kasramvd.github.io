@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Nampeyo <small>Kasra</small></title>
+    <title>Nampeyo <small>python</small></title>
     <meta name="description" content="">
     <meta name="author" content="Kasra">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,52 +51,117 @@
 
     <div class='row-fluid''>
         <div class="article-title span9">
-            <a href="/how-to-make-the-dictionary-indexing-faster.html"><h1>How to make the dictionary indexing faster?</h1></a>
+            <a href="/regarding-operator-precedence.html"><h1>Regarding operator precedence</h1></a>
         </div>
     </div>
     <div class="row-fluid">
       <div class="span2">
-<p>Wed 30 November 2016 </p>
+<p>Thu 01 December 2016 </p>
 
 <p style="text-align: left;">
 Filed under <a href="/category/python.html">Python</a>
 </p>
 <p style="text-align: left;">
  
-    Tags <a href="/tag/dictionary.html">dictionary</a> <a href="/tag/performance.html">performance</a> <a href="/tag/indexing.html">indexing</a> </p>
+    Tags <a href="/tag/python.html">python</a> <a href="/tag/python-3x.html">python-3.x</a> <a href="/tag/operator.html">operator</a> <a href="/tag/expression.html">expression</a> </p>
 <p>
 </p>
       </div>
       <div class="article-content span8">
-	<p>The dictionary is a key-value based data structure in python, which uses a <a href="https://en.wikipedia.org/wiki/Hash_table">hash-table</a> for indexing. This means that the complexity of its indexing in average case is about O(1).</p>
-<p>So once we created a dictionary, there is no way to make it faster in terms of algorithmic complexity. But, we might be able to applying some changes on our materials which will be conducive to gaining slightly more performance. For example, if your keys are string objects and they are not very large you can intern them in order to be cashed in memory rather than being created as a python object. If the keys in a dictionary are interned, and the lookup key is interned, the key comparisons (after hashing) can be done by comparing the pointers instead of comparing the strings (lookup key and dictionary keys). The <a href="https://docs.python.org/3/library/sys.html#sys.intern"><code>intern()</code></a> function within <code>sys</code> module stands for this purpose. </p>
-<p>Based on <a href="https://docs.python.org/3/library/sys.html#sys.intern">documentaion</a> here is what the <code>intern()</code> function does:</p>
+	<p>Alongside the other answers that mentioned the precedence of <code>not</code> is lower than <code>in</code>, actually your statement is equivalent to :</p>
+<div class="codehilite"><pre><span></span>not (True in [False, True])
+</pre></div>
+
+
+<p>But note that if you don&rsquo;t separate your condition from the other ones, python will use 2 roles (<code>precedence</code> or <code>chaining</code>) in order to separate that, and in this case python used precedence. Also, note that if you want to separate a condition you need to put all the condition in parenthesis not just the object or value :</p>
+<div class="codehilite"><pre><span></span>(not True) in [False, True]
+</pre></div>
+
+
+<hr />
+<p>But as mentioned, there is another modification by python on operators that is <strong>chaining</strong>:</p>
+<p>Based on python <a href="https://docs.python.org/3/reference/expressions.html#operator-precedence"><em>documentation</em></a> :</p>
 <blockquote>
-<p>Enter string in the table of <code>interned</code> strings and return the interned string – which is string itself or a copy. Interning strings is useful to gain a little performance on <strong>dictionary lookup</strong>&hellip;</p>
+<p>Note that comparisons, membership tests, and identity tests, all have the same precedence and have a left-to-right <strong>chaining</strong> feature as described in the Comparisons section.</p>
 </blockquote>
-<p>Here is an example and benchmark:</p>
-<div class="codehilite"><pre><span></span>    <span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
+<p>For example the result of following statement is <code>False</code>:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; True == False in [False, True]
+False
+</pre></div>
 
-    <span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mystr25&#39;</span><span class="p">]</span>
-    <span class="mi">10000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">46.9</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
 
-    <span class="n">In</span> <span class="p">[</span><span class="mi">51</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">sys</span><span class="o">.</span><span class="n">intern</span><span class="p">(</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
+<p>Because python will chain the statements like following :</p>
+<div class="codehilite"><pre><span></span>(True == False) and (False in [False, True])
+</pre></div>
 
-    <span class="n">In</span> <span class="p">[</span><span class="mi">52</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mystr25&#39;</span><span class="p">]</span>
-    <span class="mi">10000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">38.8</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
+
+<p>Which exactly is <code>False and True</code> that is <code>False</code>. </p>
+<p>You can assume that the central object will be shared between 2 operations and other objects (False in this case).</p>
+<p>And note that its also true for all Comparisons, including membership tests and identity tests operations which are following operands :</p>
+<div class="codehilite"><pre><span></span>in, not in, is, is not, &lt;, &lt;=, &gt;, &gt;=, !=, ==
+</pre></div>
+
+
+<p>Example :</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; 1 in [1,2] == True
+False
+</pre></div>
+
+
+<p>Another famous example is number range :</p>
+<div class="codehilite"><pre><span></span>7&lt;x&lt;20
+</pre></div>
+
+
+<p>which is equal to :</p>
+<div class="codehilite"><pre><span></span>7&lt;x and x&lt;20
 </pre></div> 
-	<a class="btn btn-mini xsmall" href="/how-to-make-the-dictionary-indexing-faster.html">
+	<a class="btn btn-mini xsmall" href="/regarding-operator-precedence.html">
           <i class="icon-comment"></i> Comment </a>
 	<hr />
       </div>
       
     </div>
     
+
+ 
+        
+
+
+
+    <div class='row-fluid'>
+      <div class='article-title span9'> 
+        <a href="/regarding-objetc-identity.html"><h1>Regarding objetc identity</h1></a>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span2">
+<p>Thu 01 December 2016 </p>
+
+<p style="text-align: left;">
+Filed under <a href="/category/python.html">Python</a>
+</p>
+<p style="text-align: left;">
+ 
+    Tags <a href="/tag/python.html">python</a> <a href="/tag/python-3x.html">python-3.x</a> <a href="/tag/tuples.html">tuples</a> <a href="/tag/identity.html">identity</a> <a href="/tag/python-internals.html">python-internals</a> </p>
+<p>
+</p>
+      </div>
+      <div class="summary span8">
+	<p>Immutable objects don&rsquo;t have the same <code>id</code>, and as a mater of fact this is not true for any type of objects that you define separately. Every time you define an object in Python, you&rsquo;ll create a new object with a new identity.</p>
+<p>But there are some exceptions ...</p> 
+	<a class="btn btn-mini xsmall" href="/regarding-objetc-identity.html">
+          <i class="icon-plus-sign"></i> Read More </a>
+	<hr />
+      </div>
+      
+    </div>
+      
 <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
-    <li class="active"><a href="/author/kasra.html">1</a></li>
+    <li class="active"><a href="/tag/python.html">1</a></li>
 
     <li class="next disabled"><a href="#">&rarr; Next</a></li>
 

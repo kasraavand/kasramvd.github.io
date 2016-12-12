@@ -72,10 +72,10 @@ Filed under <a href="/category/python.html">Python</a>
 <p>So once we created a dictionary, there is no way to make it faster in terms of algorithmic complexity. But, we might be able to applying some changes on our materials which will be conducive to gaining slightly more performance. For example, if your keys are string objects and they are not very large you can intern them in order to be cashed in memory rather than being created as a python object. If the keys in a dictionary are interned, and the lookup key is interned, the key comparisons (after hashing) can be done by comparing the pointers instead of comparing the strings (lookup key and dictionary keys). The <a href="https://docs.python.org/3/library/sys.html#sys.intern"><code>intern()</code></a> function within <code>sys</code> module stands for this purpose. </p>
 <p>Based on <a href="https://docs.python.org/3/library/sys.html#sys.intern">documentaion</a> here is what the <code>intern()</code> function does:</p>
 <blockquote>
-<p>Enter string in the table of <code>interned</code> strings and return the interned string – which is string itself or a copy. Interning strings is useful to gain a little performance on <strong>dictionary lookup</strong>...</p>
+<p>Enter string in the table of <code>interned</code> strings and return the interned string – which is string itself or a copy. Interning strings is useful to gain a little performance on <strong>dictionary lookup</strong>&hellip;</p>
 </blockquote>
 <p>Here is an example and benchmark:</p>
-<div class="highlight"><pre><span></span>    <span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
+<div class="codehilite"><pre><span></span>    <span class="n">In</span> <span class="p">[</span><span class="mi">49</span><span class="p">]:</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;mystr{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">):</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)}</span>
 
     <span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;mystr25&#39;</span><span class="p">]</span>
     <span class="mi">10000000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">46.9</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span>
@@ -120,8 +120,9 @@ Filed under <a href="/category/python.html">Python</a>
 	    <li class="nav-header">
 	      Social
 	    </li>
-	    <li><a href="#"><i class="icon-You can add links in your config file" style="color: #1f334b"></i>You can add links in your config file</a></li>
-	    <li><a href="#"><i class="icon-Another social link" style="color: #1f334b"></i>Another social link</a></li>
+	    <li><a href="http://stackoverflow.com/users/2867928/kasramvd?tab=profile"><i class="icon-Stackoverflow" style="color: #1f334b"></i>Stackoverflow</a></li>
+	    <li><a href="https://github.com/Kasramvd"><i class="icon-Github" style="color: #1f334b"></i>Github</a></li>
+	    <li><a href="https://twitter.com/kasramvd"><i class="icon-TWitter" style="color: #1f334b"></i>TWitter</a></li>
 
 	  </ul>
 	</div>
@@ -134,7 +135,6 @@ Filed under <a href="/category/python.html">Python</a>
             <li><a href="http://getpelican.com/">Pelican</a></li>
             <li><a href="http://python.org/">Python.org</a></li>
             <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-            <li><a href="#">You can modify those links in your config file</a></li>
           </ul>
         </div>
 	<div class="site-nav span2" align="center">

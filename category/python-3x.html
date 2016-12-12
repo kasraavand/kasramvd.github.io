@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Nampeyo <small>Python-3.x</small></title>
+    <meta name="description" content="">
+    <meta name="author" content="Kasra">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="/theme/html5.js"></script>
+    <![endif]-->
+
+
+    <!-- Le styles -->
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+    <link href="/theme/local.css" rel="stylesheet">
+    <link href="/theme/pygments.css" rel="stylesheet">
+    <link href="/theme/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Gudea:400,400italic|Alegreya+SC' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+<header class="blog-header">
+  <div class="container">
+    <div class="row-fluid">
+      <div class="span9">
+	<a href="" class="brand">Nampeyo</a>
+      </div>
+
+      <div class="span3" id="blog-nav">
+	<ul class="nav nav-pills pull-right">
+	    <li >
+	      <a href="/category/python.html ">Python</a>
+	    <li  class="active" >
+	      <a href="/category/python-3x.html ">Python-3.x</a>
+	</ul>
+      </div>
+    </div> <!-- End of fluid row-->
+  </div>   <!-- End of Container-->
+</header>
+    
+<div class="container">
+    <div class="content">
+    <div class="row-fluid">
+
+        <div class="span10">
+        
+
+        
+
+    <div class='row-fluid''>
+        <div class="article-title span9">
+            <a href="/regarding-objetc-identity.html"><h1>Regarding objetc identity</h1></a>
+        </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span2">
+<p>Thu 01 December 2016 </p>
+
+<p style="text-align: left;">
+Filed under <a href="/category/python-3x.html">Python-3.x</a>
+</p>
+<p style="text-align: left;">
+ 
+    Tags <a href="/tag/python.html">python</a> <a href="/tag/python-3x.html">python-3.x</a> <a href="/tag/tuples.html">tuples</a> <a href="/tag/identity.html">identity</a> <a href="/tag/python-internals.html">python-internals</a> </p>
+<p>
+</p>
+      </div>
+      <div class="article-content span8">
+	<p>Immutable objects don&rsquo;t have the same <code>id</code>, and as a mater of fact this is not true for any type of objects that you define separately. Every time you define an object in Python, you&rsquo;ll create a new object with a new identity.</p>
+<p>But there are some exceptions for small integers (between -5 and 256) and small strings (interned strings, with a special length (usually less than 20 character)) which are singletons and have same <code>id</code> (actually one object with multiple pointer). You can check this fact like following:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; 30 is 20 + 10
+True
+&gt;&gt;&gt; 
+&gt;&gt;&gt; 300 is 200 + 100
+False
+&gt;&gt;&gt; &#39;aa&#39; * 2 is &#39;a&#39; * 4
+True
+&gt;&gt;&gt; &#39;aa&#39; * 20 is &#39;a&#39; * 40
+False
+</pre></div>
+
+
+<p>And for a custom object:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; class A:
+...    pass
+... 
+&gt;&gt;&gt; A() is A() # Every time you create an instance you&#39;ll have a new instance with new identity
+False
+</pre></div>
+
+
+<p>Also note that the <code>is</code> operator will check the object&rsquo;s identity, not the value. If you want to check the value you should use <code>==</code>:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; 300 == 3*100
+True
+</pre></div>
+
+
+<p>And since there is no such rule for tuples (other types) if you define the two same tuples in any size they&rsquo;ll get their own ids:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; a = (1,)
+&gt;&gt;&gt; b = (1,)
+&gt;&gt;&gt;
+&gt;&gt;&gt; a is b
+False
+</pre></div>
+
+
+<p>And note that the fact of singleton integers and interned strings is true even when you define them within mutable and immutable objects:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; a = (100, 700, 400)
+&gt;&gt;&gt;
+&gt;&gt;&gt; b = (100, 700, 400)
+&gt;&gt;&gt;
+&gt;&gt;&gt; a[0] is b[0]
+True
+&gt;&gt;&gt; a[1] is b[1]
+False
+</pre></div> 
+	<a class="btn btn-mini xsmall" href="/regarding-objetc-identity.html">
+          <i class="icon-comment"></i> Comment </a>
+	<hr />
+      </div>
+      
+    </div>
+    
+<div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="/category/python-3x.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>
+
+ 
+  
+        </div>
+        
+        
+    </div>     </div> </div>
+
+<!--footer-->
+<div class="container">
+  <div class="well" style="background-color: #E9EFF6">
+    <div id="blog-footer">
+      <div class="row-fluid">
+	<div class="social span2" align="center" id="socialist">
+	  <ul class="nav nav-list">
+	    <li class="nav-header">
+	      Social
+	    </li>
+	    <li><a href="#"><i class="icon-You can add links in your config file" style="color: #1f334b"></i>You can add links in your config file</a></li>
+	    <li><a href="#"><i class="icon-Another social link" style="color: #1f334b"></i>Another social link</a></li>
+
+	  </ul>
+	</div>
+        <div class="links span2" align="center">
+          <ul class="nav nav-list">
+            <li class="nav-header"> 
+              Links
+            </li>
+            
+            <li><a href="http://getpelican.com/">Pelican</a></li>
+            <li><a href="http://python.org/">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+            <li><a href="#">You can modify those links in your config file</a></li>
+          </ul>
+        </div>
+	<div class="site-nav span2" align="center">
+          <ul class="nav nav-list" id="site-links">
+            <li class="nav-header"> 
+              Site
+            </li>
+            <li><a href=""><i class="icon-home" style="color: #1f334b">
+                </i>Home</a></li>
+            <li><a href="/archives.html"><i class="icon-list" style="color: #1f334b">
+                </i>Archives</a></li>
+	    <li><a href="/tags.html"><i class="icon-tags" style="color: #1f334b">
+                </i>Tags</a></li>
+	    
+	  </ul>
+
+        </div>
+
+      </div> <!--end of fluid row-->
+    </div> <!--end of blog-footer-->
+    <hr />
+    <p align="center"><a href="">Nampeyo</a>
+      &copy; Kasra
+    Powered by <a href="https://github.com/getpelican/pelican">Pelican</a> and
+        <a href="https://twitter.github.com/bootstrap">Twitter Bootstrap</a>. 
+        Icons by <a href="https://fortawesome.github.com/Font-Awesome">Font Awesome</a> and 
+        <a href="https://gregoryloucas.github.com/Font-Awesome-More">Font Awesome More</a></p>
+
+  </div> <!--end of well -->
+</div> <!--end of container -->
+
+<!--/footer-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>
